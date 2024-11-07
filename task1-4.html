@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Task Interface</title>
+</head>
+<body>
+	<h1>JavaScript Tasks</h1>
+
+	<!-- Завдання 1 -->
+	<div>
+		<h2>Завдання 1: Make Transaction</h2>
+		<label for="quantity">Quantity:</label>
+		<input type="number" id="quantity" />
+		<label for="pricePerDroid">Price per Droid:</label>
+		<input type="number" id="pricePerDroid" />
+		<button onclick="runMakeTransaction()">Submit</button>
+		<p id="transactionResult"></p>
+	</div>
+
+	<!-- Завдання 2 -->
+	<div>
+		<h2>Завдання 2: Check for Spam</h2>
+		<label for="message">Message:</label>
+		<input type="text" id="message" />
+		<button onclick="runCheckForSpam()">Check</button>
+		<p id="spamResult"></p>
+	</div>
+
+	<!-- Завдання 3 -->
+	<div>
+		<h2>Завдання 3: Filter Array</h2>
+		<label for="numbers">Numbers (comma separated):</label>
+		<input type="text" id="numbers" />
+		<label for="value">Value:</label>
+		<input type="number" id="value" />
+		<button onclick="runFilterArray()">Filter</button>
+		<p id="filterResult"></p>
+	</div>
+
+	<!-- Завдання 4 -->
+	<div>
+		<h2>Завдання 4: Find Max Negative and Min Positive</h2>
+		<label for="arrayInput">Array (comma separated):</label>
+		<input type="text" id="arrayInput" />
+		<button onclick="runSolveTaskOne()">Find Values</button>
+		<p id="taskOneResult"></p>
+	</div>
+
+	<script>
+		// Завдання 1
+		function makeTransaction(quantity, pricePerDroid) {
+			let sumOfDroids = quantity * pricePerDroid;
+			return `You ordered ${quantity} droids worth ${sumOfDroids} credits`;
+		}
+
+		function runMakeTransaction() {
+			const quantity = parseInt(document.getElementById("quantity").value);
+			const pricePerDroid = parseInt(document.getElementById("pricePerDroid").value);
+			const result = makeTransaction(quantity, pricePerDroid);
+			document.getElementById("transactionResult").innerText = result;
+		}
+
+		// Завдання 2
+		function checkForSpam(message) {
+			let arr = [];
+			let currWord = "";
+			let copiedMessage = message.toUpperCase();
+
+			if (copiedMessage.length == 0) {
+				return "String is empty";
+			}
+
+			for (let i = 0; i < copiedMessage.length; i++) {
+				if (copiedMessage[i] != " ") {
+					currWord += copiedMessage[i];
+				} else {
+					arr.push(currWord);
+					currWord = "";
+				}
+			}
+			arr.push(currWord);
+
+			for (let i = 0; i < arr.length; i++) {
+				if (arr[i] == "SPAM" || arr[i] == "SALE") {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		function runCheckForSpam() {
+			const message = document.getElementById("message").value;
+			const result = checkForSpam(message);
+			document.getElementById("spamResult").innerText = result ? "Spam detected!" : "No spam detected.";
+		}
+
+		// Завдання 3
+		function filterArray(numbers, value) {
+			let arr = [];
+			for (let i = 0; i < numbers.length; i++) {
+				if (numbers[i] > value) {
+					arr.push(numbers[i]);
+				}
+			}
+			return arr;
+		}
+
+		function runFilterArray() {
+			const numbers = document.getElementById("numbers").value.split(',').map(Number);
+			const value = parseInt(document.getElementById("value").value);
+			const result = filterArray(numbers, value);
+			document.getElementById("filterResult").innerText = `Filtered Array: ${result.join(", ")}`;
+		}
+
+		// Завдання 4
+		function findMaxNegativeValue(arr) {
+			let MaxNegativeValue = -100;
+			for(let i = 1; i < arr.length; i++) {
+				if(MaxNegativeValue < 0 && arr[i] < 0 && MaxNegativeValue < arr[i]) {
+					MaxNegativeValue = arr[i];
+				}
+			}
+			return MaxNegativeValue;
+		}
+
+		function findMinPositiveValue(arr) {
+			let MinPositiveValue = arr[0];
+			for(let i = 1; i < arr.length; i++) {
+				if(MinPositiveValue > 0 && arr[i] > 0 && MinPositiveValue > arr[i]) { 
+					MinPositiveValue = arr[i];
+				}
+			}
+			return MinPositiveValue;
+		}
+
+		function SolveTaskOne(arr) {
+			let maxNegative = findMaxNegativeValue(arr);
+			let minPositive = findMinPositiveValue(arr);
+			console.log("Max Negative:", maxNegative);
+			console.log("Min Positive:", minPositive);
+			return { maxNegative, minPositive };
+		}
+
+		function runSolveTaskOne() {
+			const arr = document.getElementById("arrayInput").value.split(',').map(Number);
+			const result = SolveTaskOne(arr);
+			document.getElementById("taskOneResult").innerText = `Max Negative: ${result.maxNegative}, Min Positive: ${result.minPositive}`;
+		}
+	</script>
+</body>
+</html>
