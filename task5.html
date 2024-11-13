@@ -27,7 +27,7 @@
     <h2>Введіть числа через кому для побудови гістограми:</h2>
     <input type="text" id="numbers" placeholder="Наприклад: 10, 20, 15">
     <button onclick="buildHistogram()">Побудувати гістограму</button>
-
+    <button onclick ="deleteItems()">очистити гістограму</button> 
     <div id="histogram-container"></div>
 
     <script>
@@ -49,6 +49,15 @@
                 histogramContainer.appendChild(bar);
             });
         }
+
+		function deleteItems() {
+  
+ 	    const deleteElement = document.querySelector("#histogram-container");
+
+  		deleteElement.innerHTML = '';
+  
+	   }
+		
     </script>
 </body>
 </html>
