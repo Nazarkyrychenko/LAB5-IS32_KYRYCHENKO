@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html lang="uk">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Проста гістограма</title>
     <style>
-        /* Основний контейнер гістограми */
-        #histogram-container {
-            display: flex;
-            align-items: flex-end;
-            height: 800px;
-            border-left: 1px solid #333;
-            border-bottom: 1px solid #333;
-            padding: 10px;
-        }
-        /* Стовпці гістограми */
-        .bar {
-            width: 30px;
-            margin: 0 5px;
-            background-color: #4CAF50;
-            text-align: center;
-            color: white;
-        }
+      /* Основний контейнер гістограми */
+      #histogram-container {
+        display: flex;
+        align-items: flex-end;
+        height: 800px;
+        border-left: 1px solid #333;
+        border-bottom: 1px solid #333;
+        padding: 10px;
+      }
+      /* Стовпці гістограми */
+      .bar {
+        width: 30px;
+        margin: 0 5px;
+        background-color: #4caf50;
+        text-align: center;
+        color: white;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Введіть числа через кому для побудови гістограми:</h2>
-    <input type="text" id="numbers" placeholder="Наприклад: 10, 20, 15">
+    <input type="text" id="numbers" placeholder="Наприклад: 10, 20, 15" />
     <button onclick="buildHistogram()">Побудувати гістограму</button>
-    <button onclick ="deleteItems()">очистити гістограму</button> 
+    <button onclick="deleteItems()">очистити гістограму</button>
     <div id="histogram-container"></div>
 
     <script>
-        function buildHistogram() {
-            var input = document.getElementById('numbers').value;
-            var values = input.split(',').map(Number).filter(function(value) { return !isNaN(value); });
+      function buildHistogram() {
+        var input = document.getElementById("numbers").value;
+        var values = input
+          .split(",")
+          .map(Number)
+          .filter(function (value) {
+            return !isNaN(value);
+          });
 
-            // Знаходимо максимальне значення для масштабування
-            var maxValue = Math.max.apply(null, values);
-            var histogramContainer = document.getElementById('histogram-container');
-            histogramContainer.innerHTML = ''; // Очищуємо контейнер перед побудовою
+        // Знаходимо максимальне значення для масштабування
+        var maxValue = Math.max(...values);
+        var histogramContainer = document.getElementById("histogram-container");
+        histogramContainer.innerHTML = ""; // Очищуємо контейнер перед побудовою
 
-            // Створюємо стовпці гістограми
-            values.forEach(function(value) {
-                var bar = document.createElement('div');
-                bar.className = 'bar';
-                bar.style.height = (value / maxValue * 100) + '%';
-                bar.textContent = value; // Відображення значення на стовпці
-                histogramContainer.appendChild(bar);
-            });
-        }
+        // Створюємо стовпці гістограми
+        values.forEach(function (value) {
+          var bar = document.createElement("div");
+          bar.className = "bar";
+          bar.style.height = (value / maxValue) * 100 + "%";
+          bar.textContent = value; // Відображення значення на стовпці
+          histogramContainer.appendChild(bar);
+        });
+      }
 
-		function deleteItems() {
-  
- 	    const deleteElement = document.querySelector("#histogram-container");
+      function deleteItems() {
+        const deleteElement = document.querySelector("#histogram-container");
 
-  		deleteElement.innerHTML = '';
-  
-	   }
-		
+        deleteElement.innerHTML = "";
+      }
     </script>
-</body>
+  </body>
 </html>
